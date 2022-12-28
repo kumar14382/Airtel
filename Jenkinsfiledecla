@@ -6,14 +6,12 @@ pipeline{
     triggers {
       pollSCM '* * * * *'
     }
-    /*
     options {
     //Discard old builds
     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')
     //Add timestamp
-    timestamps
+    timestamps()
     }
-    */
     stages{
         stage('CheckoutCode'){
             steps{
