@@ -1,0 +1,36 @@
+pipeline{
+    agent any
+    tools{
+        maven 'maven3.8.6'
+    }
+    triggers {
+      pollSCM '* * * * *'
+    }
+    options {
+    //Discard old builds
+    buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')
+    //Add timestamp
+    timestamps
+    }
+    stages{
+        stage('CheckoutCode'){
+            steps{
+                git credentialsId: 'cf0d975d-4650-4ae0-a732-656edf689d20', url: 'https://github.com/kumar14382/maven.git'
+            }
+        }
+        stage('build'){
+            steps{
+                sh "mvn clean sonar:sonar"
+            }
+        }
+    }
+    post {
+  always {
+    emailext body: '''Build Over..
+
+    Regards,
+    kumar,
+    9848326369''',subject: 'Build Over..', to: 'kumar14381@gmail.com'
+  }
+}
+}
