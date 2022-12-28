@@ -18,11 +18,13 @@ pipeline{
                 git credentialsId: 'cf0d975d-4650-4ae0-a732-656edf689d20', url: 'https://github.com/kumar14382/maven.git'
             }
         }
+        /*
         stage('build'){
             steps{
                 sh "mvn clean sonar:sonar"
             }
         }
+        */
     }
     post {
   always {
